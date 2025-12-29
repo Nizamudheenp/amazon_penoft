@@ -8,11 +8,16 @@ const VerifyOtp = () => {
   const navigate = useNavigate();
   const [otp, setOtp] = useState("");
 
-  const submitHandler = async (e) => {
-    e.preventDefault();
+ const submitHandler = async (e) => {
+  e.preventDefault();
+  try {
     await verifyOtp(state.email, otp);
-    navigate("/login");
-  };
+    navigate("/");
+  } catch (err) {
+    alert(err.response?.data?.message || "Invalid OTP");
+  }
+};
+
 
   return (
     <div className="auth-wrapper">
@@ -23,7 +28,7 @@ const VerifyOtp = () => {
         <form onSubmit={submitHandler}>
           <label>Enter OTP</label>
           <input required onChange={(e) => setOtp(e.target.value)} />
-          <button>Create your Amazon account</button>
+          <button>Verify OTP</button>
         </form>
 
         <p className="link">Resend OTP</p>

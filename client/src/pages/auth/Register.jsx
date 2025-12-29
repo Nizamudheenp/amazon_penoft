@@ -1,6 +1,7 @@
 import { useContext, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { AuthContext } from "../../context/AuthContext";
+import AuthFooter from "../../components/AuthFooter";
 
 const Register = () => {
   const { register } = useContext(AuthContext);
@@ -13,10 +14,19 @@ const Register = () => {
     isBusiness: false
   });
 
-  const submitHandler = async (e) => {
-    e.preventDefault();
+ const submitHandler = async (e) => {
+  e.preventDefault();
+  try {
     await register(form);
     navigate("/verify-otp", { state: { email: form.email } });
+  } catch (err) {
+    alert(err.response?.data?.message || "Registration failed");
+  }
+};
+
+
+  const googleLogin = () => {
+    window.location.href = "http://localhost:5000/api/auth/google";
   };
 
   return (
@@ -28,28 +38,45 @@ const Register = () => {
 
         <form onSubmit={submitHandler}>
           <label>Your name</label>
-          <input required onChange={(e) => setForm({ ...form, name: e.target.value })} />
+          <input required value={form.name} onChange={(e) => setForm({ ...form, name: e.target.value })} />
 
           <label>Email</label>
-          <input required onChange={(e) => setForm({ ...form, email: e.target.value })} />
+          <input type="email" value={form.email} required onChange={(e) => setForm({ ...form, email: e.target.value })} />
 
           <label>Password</label>
-          <input type="password" required onChange={(e) => setForm({ ...form, password: e.target.value })} />
+          <input type="password" value={form.password} required onChange={(e) => setForm({ ...form, password: e.target.value })} />
 
-          <button>Create your Amazon account</button>
+          <button type="submit">Verify email</button>
         </form>
-
-        <p>
+        <div className="business-link" onClick={() => navigate("/business-register")}>
+          <p className="buy">Buying for work? </p>
+          <p className="link"> Create a free business account</p>
+        </div>
+        <div className="divider">
+          <span><hr /></span>
+        </div>
+        <p className="buy">
           Already have an account?{" "}
           <span className="link" onClick={() => navigate("/login")}>
             Sign in
           </span>
         </p>
-
-        <p className="business-link" onClick={() => navigate("/business-register")}>
-          Buying for work? Create a free business account
+        <p className="terms">
+          By continuing, you agree to Amazon's <span className="link">Conditions of Use </span> and <span className="link" >Privacy
+            Notice.</span>
         </p>
+
       </div>
+      <div className="divider">
+        <span>or</span>
+      </div>
+
+      <button className="google-btn" onClick={googleLogin}>
+        <img src="/Google.png" alt="" />
+        Login with Google
+      </button>
+
+      <AuthFooter />
     </div>
   );
 };

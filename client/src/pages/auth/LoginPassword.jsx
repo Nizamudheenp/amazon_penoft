@@ -10,14 +10,19 @@ const LoginPassword = () => {
   const [password, setPassword] = useState("");
 
   const submitHandler = async (e) => {
-    e.preventDefault();
+  e.preventDefault();
+  try {
     await login(state.email, password);
     navigate("/");
-  };
+  } catch (err) {
+    alert(err.response?.data?.message || "Login failed");
+  }
+};
+
 
   return (
     <div className="auth-wrapper">
-      <img src="/amazon-logo.png" className="logo" alt="amazon" />
+      <img src="/Amazon.png" className="logo" alt="amazon" />
 
       <div className="auth-box">
         <h1>Sign in</h1>
@@ -25,7 +30,7 @@ const LoginPassword = () => {
         <p className="email-preview">{state.email}</p>
 
         <form onSubmit={submitHandler}>
-          <label>Password</label>
+          <label>Enter your password</label>
           <input
             type="password"
             required

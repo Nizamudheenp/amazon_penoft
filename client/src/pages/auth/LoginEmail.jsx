@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import AuthFooter from "../../components/AuthFooter";
 
 const LoginEmail = () => {
   const [email, setEmail] = useState("");
@@ -11,8 +12,8 @@ const LoginEmail = () => {
   };
 
   const googleLogin = () => {
-  window.location.href = "http://localhost:5000/api/auth/google";
-};
+    window.location.href = "http://localhost:5000/api/auth/google";
+  };
 
 
   return (
@@ -25,6 +26,7 @@ const LoginEmail = () => {
         <form onSubmit={submitHandler}>
           <label>Email or mobile phone number</label>
           <input
+            type="email"
             required
             value={email}
             onChange={(e) => setEmail(e.target.value)}
@@ -35,15 +37,15 @@ const LoginEmail = () => {
 
         <p className="terms">
           By continuing, you agree to Amazon's <span className="link">Conditions of Use </span> and <span className="link" >Privacy
-          Notice.</span>
+            Notice.</span>
         </p>
 
         <p className="link">Need help?</p>
 
-         <p className="buy">
+        <div className="buy">
           Buying for work?
           <p className="link"> Shop on amzon Business</p>
-        </p>
+        </div>
       </div>
 
       <div className="divider">
@@ -65,6 +67,7 @@ const LoginEmail = () => {
         <img src="/Google.png" alt="" />
         Continue with Google
       </button>
+      <AuthFooter />
 
     </div>
   );

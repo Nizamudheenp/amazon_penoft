@@ -9,8 +9,8 @@ const Navbar = () => {
 
   return (
     <nav className="navbar">
-      <Link to="/" className="logo">
-        amazon
+      <Link to="/" className="logo-nav">
+        <img src="/Amazon.png" alt="logo" />
       </Link>
 
       <input className="search" placeholder="Search Amazon" />

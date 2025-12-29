@@ -40,10 +40,18 @@ exports.verifyOtp = async (req, res) => {
   if (!record || record.expiresAt < Date.now())
     return res.status(400).json({ message: "Invalid OTP" });
 
+  const user = await User.findOne({ email });
+
   await User.updateOne({ email }, { isVerified: true });
   await Otp.deleteMany({ email });
 
-  res.json({ message: "Email verified successfully" });
+   const token = jwt.sign(
+    { id: user._id },
+    process.env.JWT_SECRET,
+    { expiresIn: "7d" }
+  );
+  
+  res.json({ message: "Email verified successfully", token, user });
 };
 
 exports.login = async (req, res) => {

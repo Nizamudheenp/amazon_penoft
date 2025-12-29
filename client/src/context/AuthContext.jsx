@@ -9,7 +9,7 @@ export const AuthProvider = ({ children }) => {
   );
 
   const startLogin = async (email) => {
-    return email; 
+    return email;
   };
 
   const login = async (email, password) => {
@@ -20,12 +20,21 @@ export const AuthProvider = ({ children }) => {
   };
 
   const register = async (payload) => {
-    await api.post("/auth/register", payload);
+    try {
+      await api.post("/auth/register", payload);
+    } catch (err) {
+      throw err;
+    }
   };
 
   const verifyOtp = async (email, otp) => {
-    await api.post("/auth/verify-otp", { email, otp });
+    const { data } = await api.post("/auth/verify-otp", { email, otp });
+
+    localStorage.setItem("token", data.token);
+    localStorage.setItem("user", JSON.stringify(data.user));
+    setUser(data.user);
   };
+
 
   const logout = () => {
     localStorage.clear();
