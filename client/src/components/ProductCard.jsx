@@ -1,12 +1,16 @@
-import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 const ProductCard = ({ product }) => {
+  const navigate = useNavigate();
+
   return (
-    <div className="card">
-      <img src={product.image} alt="" />
+    <div
+      className="card"
+      onClick={() => navigate(`/product/${product._id}`)}
+    >
+      <img src={product.image} alt={product.title} />
       <h4>{product.title}</h4>
-      <p>₹{product.price}</p>
-      <Link to={`/product/${product._id}`}>View</Link>
+      <p className="price">₹{product.price}</p>
     </div>
   );
 };
