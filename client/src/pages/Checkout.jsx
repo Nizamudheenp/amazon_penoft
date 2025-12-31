@@ -10,10 +10,7 @@ const Checkout = () => {
     try {
       setLoading(true);
       await api.post("/orders");
-
-      setTimeout(() => {
-        navigate("/orders", { state: { success: true } });
-      }, 1000);
+      navigate("/order-success");
     } catch (err) {
       alert("Order failed");
     } finally {

@@ -19,6 +19,7 @@ import Navbar from "./components/Navbar";
 import Footer from "./components/Footer";
 import GoogleSuccess from "./pages/GoogleSuccess";
 import { ProductFilterProvider } from "./context/ProductFilterContext";
+import OrderSuccess from "./pages/OrderSuccess";
 
 const Layout = ({ children }) => {
   const location = useLocation();
@@ -30,7 +31,7 @@ const Layout = ({ children }) => {
     location.pathname.startsWith("/business");
 
   return (
-   <div className="app-layout">
+    <div className="app-layout">
       {!hideLayout && <Navbar />}
 
       <main className="app-content">
@@ -85,6 +86,15 @@ function App() {
                     </ProtectedRoute>
                   }
                 />
+                <Route
+                  path="/order-success"
+                  element={
+                    <ProtectedRoute>
+                      <OrderSuccess />
+                    </ProtectedRoute>
+                  }
+                />
+
               </Routes>
             </Layout>
           </ProductFilterProvider>

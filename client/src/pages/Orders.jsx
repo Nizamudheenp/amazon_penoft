@@ -1,27 +1,18 @@
 import { useEffect, useState } from "react";
 import api from "../api/axios";
-import { useLocation } from "react-router-dom";
 
 const Orders = () => {
   const [orders, setOrders] = useState([]);
-  const location = useLocation();
 
   useEffect(() => {
     api.get("/orders").then((res) => {
       setOrders(res.data)
-      console.log(res.data);
     });
   }, []);
 
   return (
     <div className="orders-page">
       <h2>Your Orders</h2>
-
-      {location.state?.success && (
-        <div className="order-success">
-           Payment successful. Your order has been placed.
-        </div>
-      )}
 
       {orders.length === 0 && <p>You have no orders.</p>}
 
