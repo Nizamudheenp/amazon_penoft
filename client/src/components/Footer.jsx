@@ -44,7 +44,7 @@ const Footer = () => {
 
       <div className="footer-middle">
         <img
-          src="/amazon-logo.png"
+          src="/AmazonHome.png"
           alt="Amazon"
           className="footer-logo"
         />
