@@ -123,7 +123,7 @@ body {
 
 }
 
-.email-preview{
+.email-preview {
   margin-bottom: 5px;
 }
 
@@ -133,7 +133,7 @@ body {
   font-size: 12px;
 }
 
-.auth-footer{
+.auth-footer {
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -141,13 +141,14 @@ body {
   gap: 10px;
   font-size: 15px;
 }
-.auth-footer .condition{
+
+.auth-footer .condition {
   display: flex;
   width: 100%;
   justify-content: space-around;
   color: #0066c0;
 
-} 
+}
 
 /* nav */
 
@@ -244,26 +245,77 @@ body {
   display: block;
 }
 
-.dropdown {
+.account-dropdown {
   position: absolute;
-  top: 29px;
-  left: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  top: 30px;
+  right: 0;
+  width: 400px;
   background: white;
-  color: black;
-  width: 150px;
-  padding: 10px;
-  border-radius: 3px;
-  z-index: 10;
-  box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+  border: 1px solid #ddd;
+  padding: 16px;
+  z-index: 100;
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.2);
 }
 
-.dropdown p {
+.signin-btn {
+  width: 50%;
+  background: #ffd814;
+  border: 1px solid #fcd200;
+  padding: 8px;
+  font-weight: bold;
   cursor: pointer;
-  font-size: 14px;
+  border-radius: 10px;
 }
 
-.dropdown p:hover {
-  color: #e47911;
+.signin-btn:hover {
+  background: #f7ca00;
+}
+
+.new-user {
+  text-align: center;
+  font-size: 12px;
+  margin: 8px 0 12px;
+  color: #000;
+}
+
+.new-user span {
+  color: #007185;
+  cursor: pointer;
+}
+
+.new-user span:hover {
+  text-decoration: underline;
+}
+
+.dropdown-content {
+  display: flex;
+  border-top: 1px solid #ddd;
+  padding-top: 12px;
+  color: #000;
+}
+
+.dropdown-col {
+  flex: 1;
+  padding: 0 12px;
+}
+
+.dropdown-col h4 {
+  font-size: 14px;
+  margin-bottom: 8px;
+}
+
+.dropdown-col p {
+  font-size: 13px;
+  margin: 6px 0;
+  cursor: pointer;
+}
+
+.dropdown-col p:hover {
+  color: #c45500;
+  text-decoration: underline;
 }
 
 .nav-orders {
@@ -353,12 +405,10 @@ body {
   content: "";
   position: absolute;
   inset: 0;
-  background: linear-gradient(
-    to right,
-    rgba(0,0,0,0.6),
-    rgba(0,0,0,0.2),
-    transparent
-  );
+  background: linear-gradient(to right,
+      rgba(0, 0, 0, 0.6),
+      rgba(0, 0, 0, 0.2),
+      transparent);
 }
 
 .carousel-content {

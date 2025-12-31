@@ -12,6 +12,11 @@ export const AuthProvider = ({ children }) => {
     return email;
   };
 
+  const setGoogleUser = (user) => {
+    setUser(user);
+  };
+
+
   const login = async (email, password) => {
     const { data } = await api.post("/auth/login", { email, password });
     localStorage.setItem("token", data.token);
@@ -43,7 +48,7 @@ export const AuthProvider = ({ children }) => {
 
   return (
     <AuthContext.Provider
-      value={{ user, startLogin, login, register, verifyOtp, logout }}
+      value={{ user, startLogin, login, register, verifyOtp, logout, setGoogleUser }}
     >
       {children}
     </AuthContext.Provider>

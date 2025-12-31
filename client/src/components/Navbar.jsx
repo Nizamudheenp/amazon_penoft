@@ -1,4 +1,4 @@
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useContext, useState } from "react";
 import { AuthContext } from "../context/AuthContext";
 import { CartContext } from "../context/CartContext";
@@ -8,6 +8,7 @@ const Navbar = () => {
   const { user, logout } = useContext(AuthContext);
   const { cart } = useContext(CartContext);
   const [open, setOpen] = useState(false);
+  const navigate = useNavigate()
 
   return (
     <>
@@ -47,14 +48,54 @@ const Navbar = () => {
           <span>Hello, {user ? user.name : "Sign in"}</span>
           <strong>Account & Lists</strong>
 
-          {open && user && (
-            <div className="dropdown">
-              <p onClick={logout}>Sign Out</p>
+          {open && (
+            <div className="account-dropdown">
+              {!user ? (
+                <>
+                  <button
+                    className="signin-btn"
+                    onClick={() => navigate("/login")}
+                  >
+                    Sign in
+                  </button>
+                  <p className="new-user">
+                    New customer? <span>Start here</span>
+                  </p>
+                </>
+              ) : (
+                <>
+                  <button className="signin-btn" onClick={logout}>
+                    Sign Out
+                  </button>
+                  <p className="new-user">
+                    New customer? <span>Start here</span>
+                  </p>
+                </>
+
+              )}
+
+              <div className="dropdown-content">
+                <div className="dropdown-col">
+                  <h4>Your Lists</h4>
+                  <p>Create a Wish List</p>
+                  <p>Wish from Any Website</p>
+                  <p>Baby Wishlist</p>
+                  <p>Discover Your Style</p>
+                </div>
+
+                <div className="dropdown-col">
+                  <h4>Your Account</h4>
+                  <p>Your Account</p>
+                  <p>Your Orders</p>
+                  <p>Your Wishlist</p>
+                  <p>Your Recommendations</p>
+                  <p>Your Prime Membership</p>
+                </div>
+              </div>
             </div>
           )}
-
-          {!user && <Link to="/login" className="overlay-link" />}
         </div>
+
 
         <Link to="/orders" className="nav-orders">
           <span>Returns</span>

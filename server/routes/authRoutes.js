@@ -13,7 +13,6 @@ router.post("/register", register);
 router.post("/verify-otp", verifyOtp);
 router.post("/login", login);
 
-// GOOGLE AUTH
 router.get("/google",
   passport.authenticate("google", { scope: ["profile", "email"] })
 );
@@ -26,8 +25,11 @@ router.get("/google/callback",
     });
 
     res.redirect(
-      `${process.env.CLIENT_URL}/google-success?token=${token}`
+      `${process.env.CLIENT_URL}/google-success?token=${token}&user=${encodeURIComponent(
+        JSON.stringify(req.user)
+      )}`
     );
+
   }
 );
 
