@@ -44,3 +44,25 @@ exports.removeFromCart = async (req, res) => {
   await cart.save();
   res.json(cart);
 };
+
+exports.updateQuantity = async (req, res) => {
+  const { quantity } = req.body;
+  const { productId } = req.params;
+
+  const cart = await Cart.findOne({ userId: req.user.id });
+
+  if (!cart) return res.status(404).json({ message: "Cart not found" });
+
+  const item = cart.items.find(
+    i => i.productId.toString() === productId
+  );
+
+  if (!item) return res.status(404).json({ message: "Item not found" });
+
+  item.quantity = quantity;
+
+  await cart.save();
+
+  res.json(cart);
+};
+

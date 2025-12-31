@@ -1,15 +1,45 @@
 import api from "../api/axios";
 import { useNavigate } from "react-router-dom";
+import { useState } from "react";
 
 const Checkout = () => {
   const navigate = useNavigate();
+  const [loading, setLoading] = useState(false);
 
   const placeOrder = async () => {
-    await api.post("/orders");
-    navigate("/orders");
+    try {
+      setLoading(true);
+      await api.post("/orders");
+
+      setTimeout(() => {
+        navigate("/orders", { state: { success: true } });
+      }, 1000);
+    } catch (err) {
+      alert("Order failed");
+    } finally {
+      setLoading(false);
+    }
   };
 
-  return <button onClick={placeOrder}>Place Order</button>;
+  return (
+    <div className="checkout-page">
+      <h2>Checkout</h2>
+
+      <div className="checkout-box">
+        <p><strong>Delivery Address</strong></p>
+        <p> Ernakulam, Kerala, India</p>
+
+        <hr />
+
+        <p><strong>Payment Method</strong></p>
+        <p>Cash on Delivery (Demo)</p>
+
+        <button onClick={placeOrder} disabled={loading}>
+          {loading ? "Processing..." : "Place your order"}
+        </button>
+      </div>
+    </div>
+  );
 };
 
 export default Checkout;

@@ -18,6 +18,7 @@ import ProtectedRoute from "./components/ProtectedRoute";
 import Navbar from "./components/Navbar";
 import Footer from "./components/Footer";
 import GoogleSuccess from "./pages/GoogleSuccess";
+import { ProductFilterProvider } from "./context/ProductFilterContext";
 
 const Layout = ({ children }) => {
   const location = useLocation();
@@ -29,11 +30,15 @@ const Layout = ({ children }) => {
     location.pathname.startsWith("/business");
 
   return (
-    <>
+   <div className="app-layout">
       {!hideLayout && <Navbar />}
-      {children}
+
+      <main className="app-content">
+        {children}
+      </main>
+
       {!hideLayout && <Footer />}
-    </>
+    </div>
   );
 };
 
@@ -42,45 +47,47 @@ function App() {
     <BrowserRouter>
       <AuthProvider>
         <CartProvider>
-          <Layout>
-            <Routes>
-              <Route path="/" element={<Home />} />
-              <Route path="/product/:id" element={<ProductDetails />} />
+          <ProductFilterProvider>
+            <Layout>
+              <Routes>
+                <Route path="/" element={<Home />} />
+                <Route path="/product/:id" element={<ProductDetails />} />
 
-              <Route path="/login" element={<LoginEmail />} />
-              <Route path="/login/password" element={<LoginPassword />} />
-              <Route path="/register" element={<Register />} />
-              <Route path="/verify-otp" element={<VerifyOtp />} />
-              <Route path="/business-register" element={<BusinessRegister />} />
-              <Route path="/google-success" element={<GoogleSuccess />} />
+                <Route path="/login" element={<LoginEmail />} />
+                <Route path="/login/password" element={<LoginPassword />} />
+                <Route path="/register" element={<Register />} />
+                <Route path="/verify-otp" element={<VerifyOtp />} />
+                <Route path="/business-register" element={<BusinessRegister />} />
+                <Route path="/google-success" element={<GoogleSuccess />} />
 
 
-              <Route
-                path="/cart"
-                element={
-                  <ProtectedRoute>
-                    <Cart />
-                  </ProtectedRoute>
-                }
-              />
-              <Route
-                path="/checkout"
-                element={
-                  <ProtectedRoute>
-                    <Checkout />
-                  </ProtectedRoute>
-                }
-              />
-              <Route
-                path="/orders"
-                element={
-                  <ProtectedRoute>
-                    <Orders />
-                  </ProtectedRoute>
-                }
-              />
-            </Routes>
-          </Layout>
+                <Route
+                  path="/cart"
+                  element={
+                    <ProtectedRoute>
+                      <Cart />
+                    </ProtectedRoute>
+                  }
+                />
+                <Route
+                  path="/checkout"
+                  element={
+                    <ProtectedRoute>
+                      <Checkout />
+                    </ProtectedRoute>
+                  }
+                />
+                <Route
+                  path="/orders"
+                  element={
+                    <ProtectedRoute>
+                      <Orders />
+                    </ProtectedRoute>
+                  }
+                />
+              </Routes>
+            </Layout>
+          </ProductFilterProvider>
         </CartProvider>
       </AuthProvider>
     </BrowserRouter>

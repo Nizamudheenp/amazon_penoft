@@ -3,13 +3,19 @@ import { useContext, useState } from "react";
 import { AuthContext } from "../context/AuthContext";
 import { CartContext } from "../context/CartContext";
 import { FaMapMarkerAlt, FaShoppingCart } from "react-icons/fa";
+import { ProductFilterContext } from "../context/ProductFilterContext";
 
 const Navbar = () => {
   const { user, logout } = useContext(AuthContext);
   const { cart } = useContext(CartContext);
   const [open, setOpen] = useState(false);
   const navigate = useNavigate()
+  const { search, setSearch, category, setCategory } = useContext(ProductFilterContext);
+  const [localSearch, setLocalSearch] = useState(search);
 
+  const handleSearch = () => {
+    setSearch(localSearch);
+  };
   return (
     <>
       <nav className="navbar">
@@ -26,14 +32,22 @@ const Navbar = () => {
         </div>
 
         <div className="nav-search">
-          <select>
+          <select value={category} onChange={(e) => setCategory(e.target.value)}>
             <option>All</option>
             <option>Electronics</option>
-            <option>Mobiles</option>
+            <option>Footwear</option>
+            <option>Appliances</option>
+            <option>Books</option>
+            <option>Toys</option>
             <option>Fashion</option>
           </select>
-          <input placeholder="Search Amazon" />
-          <button>🔍</button>
+          <input
+            placeholder="Search Amazon"
+            value={localSearch}
+            onChange={(e) => setLocalSearch(e.target.value)}
+            onKeyDown={(e) => e.key === "Enter" && handleSearch()}
+          />
+          <button onClick={handleSearch}>🔍</button>
         </div>
 
         <div className="nav-lang">

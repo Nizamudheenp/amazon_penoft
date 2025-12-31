@@ -11,7 +11,7 @@ export const CartProvider = ({ children }) => {
     setCart(data.items || []);
   };
 
-  const addToCart = async (productId, quantity) => {
+  const addToCart = async (productId, quantity = 1) => {
     await api.post("/cart", { productId, quantity });
     fetchCart();
   };
@@ -21,12 +21,17 @@ export const CartProvider = ({ children }) => {
     fetchCart();
   };
 
+  const updateQuantity = async (productId, quantity) => {
+    await api.put(`/cart/${productId}`, { quantity });
+    fetchCart();
+  };
+
   useEffect(() => {
     fetchCart();
   }, []);
 
   return (
-    <CartContext.Provider value={{ cart, addToCart, removeFromCart }}>
+    <CartContext.Provider value={{ cart, addToCart, removeFromCart, updateQuantity  }}>
       {children}
     </CartContext.Provider>
   );
